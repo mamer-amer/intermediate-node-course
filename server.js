@@ -12,9 +12,12 @@ mongoose.connect(url,{useUnifiedTopology: true,
 
 app.use(bodyParser.json());
 
-
+app.all('/api/*', function(req, res, next){
+  console.log('General Validations or authentication code for routes goes here');
+  next();
+});
 // CREATE
-app.post('/users',async (req,res)=>{
+app.post('/api/users',async (req,res)=>{
   console.log(req.body)
 
   const user = new User(req.body);
@@ -45,14 +48,6 @@ app.route('/users/:id')
   res.send(user)
 
 })
-
-
-
-
-
-
-
-
 app.listen(port, ()=>{
 	console.log(`server is listening on port:${port}`)
 })
