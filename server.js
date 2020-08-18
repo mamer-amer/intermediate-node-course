@@ -35,13 +35,15 @@ app.route('/users/:id')
 // UPDATE
 .put(async (req,res)=>{
   console.log(req)
-  const updatedUser = await User.findByIdAndUpdate({_id:req.params.id,})
+  const updatedUser = await User.findByIdAndUpdate(req.params.id,{...req.body},{new:true})
   res.send(updatedUser)
 
 })
 // DELETE
-.delete((req,res)=>{
-  // User.findByIdAndDelete()
+.delete( async (req,res)=>{
+  const user  = await User.findByIdAndDelete(req.params.id)
+  res.send(user)
+
 })
 
 
